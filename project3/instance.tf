@@ -15,11 +15,11 @@ output "CENTOS_AMI_ID" {
 }
  resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
+  public_key = "${file("~/.ssh/id_rsa")}"
  
 
 }
-resource "aws_instance" "centos" {
+resource "aws_instance" "centos7" {
   ami           = "${data.aws_ami.centos.id}"
   key_name = "${aws_key_pair.deployer.key_name}"
   security_groups = ["${aws_security_group.allow_tls.name}"]

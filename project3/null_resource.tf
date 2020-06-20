@@ -21,7 +21,7 @@
 
 resource "aws_key_pair" "deployer2" {
   key_name   = "deployer2-key"
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
+  public_key = "${file("~/.ssh/id_rsa")}"
 }
 resource "aws_instance" "centos" {
   ami           = "${data.aws_ami.centos.id}"
