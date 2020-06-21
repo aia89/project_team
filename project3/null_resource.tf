@@ -25,7 +25,7 @@ resource "aws_key_pair" "deployer2" {
 }
 resource "aws_instance" "centos" {
   ami           = "${data.aws_ami.centos.id}"
-  key_name      = "${aws_key_pair.deployer2.key_name}"
+  key_name      = "${aws_key_pair.deployer.key_name}"
   instance_type = "t3.medium"
   provisioner   "remote-exec" {
     connection {
@@ -36,7 +36,7 @@ resource "aws_instance" "centos" {
     }
     inline = [
       "sudo yum install epel-release -y",
-	  "sudo yum install curl -y",
+	    "sudo yum install curl -y",
       "sudo curl  https://assets.nagios.com/downloads/nagiosxi/install.sh | sh",
      
     ]
