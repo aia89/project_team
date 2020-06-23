@@ -1,7 +1,7 @@
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
   public_key = "${file("~/.ssh/id_rsa.pub")}"
-}
+ }
 resource "aws_instance" "centos" {
   ami               = "${data.aws_ami.centos.id}"
   key_name          = "${aws_key_pair.deployer.key_name}"
@@ -9,27 +9,14 @@ resource "aws_instance" "centos" {
   subnet_id         = "${aws_subnet.public1.id}"
   associate_public_ip_address = true
   source_dest_check = false
-#   security_groups = ["${aws_security_group.allow_tls.name}"]
+
   user_data = "${file("nagios.sh")}"
   instance_type = "t3.medium"
-#   provisioner   "remote-exec" {
-#     connection {
-#         host        = "${self.public_ip}"
-#         type        = "ssh"
-#         user        = "centos"
-#         private_key = "${file("~/.ssh/id_rsa")}"
-#     }
-#     inline = [
-#         "sudo setenforce 0",
-#         "sudo yum install epel-release -y",
-# 	    "sudo yum install curl -y",
-#         "sudo curl  https://assets.nagios.com/downloads/nagiosxi/install.sh | sh",
-#     ]
-#   }
-tags = {
+
+ tags = {
     Name = "NagiosProject"
   }
-}
+ }
 
 resource "aws_security_group" "allow_tls" {
   name        = "allow_tls"
