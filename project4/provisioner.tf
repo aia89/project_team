@@ -26,6 +26,9 @@ resource "aws_instance" "centos" {
 #         "sudo curl  https://assets.nagios.com/downloads/nagiosxi/install.sh | sh",
 #     ]
 #   }
+tags = {
+    Name = "NagiosProject"
+  }
 }
 
 resource "aws_security_group" "allow_tls" {
@@ -68,6 +71,7 @@ resource "aws_security_group" "allow_tls" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  vpc_id = "${aws_vpc.main.id}"
 
   tags = {
     Name = "allow_tls"
