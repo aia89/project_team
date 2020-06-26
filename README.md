@@ -107,7 +107,8 @@ This resource can prove useful when a module accepts a subnet id as an input var
 
 
 4.networking.tf
-Networking.tf file contains variables from private and public subnets, as well as routing table, internet gateway and private subnet association with RT.
+
+file contains variables from private and public subnets, as well as routing table, internet gateway and private subnet association with RT.
 
 
 
