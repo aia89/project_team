@@ -162,6 +162,8 @@ nagios server.
     
  7. backend.tf contains data about S3 bucket, changed it into your own bucket name. 
  
+ 8. setenv.sh file doesn’t need to be changed, it contains script which will change users env name while changing it from S3
+ 
     
     
     
