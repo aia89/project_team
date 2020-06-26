@@ -160,7 +160,8 @@ nagios server.
 		sudo curl  https://assets.nagios.com/downloads/nagiosxi/install.sh | sh
     
     
-    
+ 7. backend.tf contains data about S3 bucket, changed it into your own bucket name. 
+ 
     
     
     
