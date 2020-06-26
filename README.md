@@ -1,4 +1,14 @@
-# final version project 4, ready for provisioning.
+# Final version project 4, ready for provisioning.
+Terraform
+
+Use Infrastructure as Code to provision and manage any cloud, infrastructure, or service
+
+Nagios XI
+
+Enterprise Server and Network Monitoring Software
+
+Comprehensive application, service, and network monitoring in a central solution.
+
 
 
 # provider.tf Configure the AWS Provider
