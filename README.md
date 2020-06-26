@@ -103,42 +103,42 @@ Networking.tf file contains variables from private and public subnets, as well a
 
 5.centos_ami.tf this file gathers data about instance
 
-data "aws_ami" "centos" {
+    data "aws_ami" "centos" {
  
- most_recent = true
+    most_recent = true
   
-  filter {
+    filter {
     
-   name   = "name"
+     name   = "name"
     
-   values = ["CentOS Linux 7 x86_64 HVM EBS *"]
+    values = ["CentOS Linux 7 x86_64 HVM EBS *"]
   
-  }
+    }
   
-  filter {
+    filter {
     
-   name   = "virtualization-type"
+    name   = "virtualization-type"
     
-   values = ["hvm"]
+    values = ["hvm"]
   
-  }
- 
- owners = ["679593333241"] # Canonical
+    }
+  
+    owners = ["679593333241"] # Canonical
 
-}
+    }
 
-output "CENTOS_AMI_ID" {
+    output "CENTOS_AMI_ID" {
     
-   value = "${data.aws_ami.centos.id}"
+     value = "${data.aws_ami.centos.id}"
 
-}
+    }
 
 
 6. user data nagios.sh contains bash script which runs while image getting created and install needed tools to run 
 
 nagios server.
 
-#! /bin/bash
+    #! /bin/bash
        
        sudo setenforce 0
         
