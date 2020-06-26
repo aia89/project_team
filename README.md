@@ -10,6 +10,7 @@ Enterprise Server and Network Monitoring Software
 Comprehensive application, service, and network monitoring in a central solution.
 
 
+#create a git ignore file with terraform ingnored in it.
 
 # provider.tf Configure the AWS Provider
     provider "aws" {
