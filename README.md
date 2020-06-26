@@ -165,6 +165,14 @@ nagios server.
  
  8. setenv.sh file doesn’t need to be changed, it contains script which will change users env name while changing it from S3
  
+ 9.configurations/regions folder contains all available AWS regions.
+ 
+ In order to run our code into specific region run commands: 
+ 
+    source  setenv.sh   configurations/regions/oregon.tfvars
+    terraform apply -var-file regions/oregon.tfvars
+
+ 
     
     
     
