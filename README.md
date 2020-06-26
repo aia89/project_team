@@ -1,5 +1,14 @@
 # final version project 4, ready for provisioning.
 
+provider.tf
+# Configure the AWS Provider
+provider "aws" {
+  version = "~> 2.66"
+  region  = "${var.region}"
+}
+
+
+
 1. Provisioner.tf 
 Provisioners can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service.
 
@@ -40,40 +49,8 @@ resource "aws_security_group" "allow_tls" {
     protocol    = "tcp"
      cidr_blocks = ["0.0.0.0/0"]
   }
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 5693
-    to_port     = 5693
-    protocol    = "tcp"
-     cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-     cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-     cidr_blocks = ["0.0.0.0/0"]
-  }
+  
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  vpc_id = "${aws_vpc.main.id}"
-
-  tags = {
-    Name = "allow_tls"
-  }
-}
 
 
 2. aws_vpc provides details about a specific VPC.
@@ -89,11 +66,49 @@ tags = {
   }
 }
 
+
+
 3.private and public subnets
 aws_subnet provides details about a specific VPC subnet.
 
 This resource can prove useful when a module accepts a subnet id as an input variable and needs to, for example, determine the id of the VPC that the subnet belongs to.
 
+
+
 4.networking.tf
+Networking.tf file contains variables from private and public subnets, as well as routing table, internet gateway and private subnet association with RT.
 
 
+
+5.centos_ami.tf this file gathers data about instance
+
+data "aws_ami" "centos" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["CentOS Linux 7 x86_64 HVM EBS *"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  owners = ["679593333241"] # Canonical
+}
+output "CENTOS_AMI_ID" {
+    value = "${data.aws_ami.centos.id}"
+}
+
+
+6. user data nagios.sh contains bash script which runs while image getting created and install needed tools to run 
+nagios server.
+#! /bin/bash
+        sudo setenforce 0
+        sudo yum install epel-release -y
+		sudo yum install curl -y
+		sudo curl  https://assets.nagios.com/downloads/nagiosxi/install.sh | sh
+    
+    
+    
+    
+    
+    
