@@ -1,11 +1,11 @@
 # final version project 4, ready for provisioning.
 
-provider.tf
-# Configure the AWS Provider
-provider "aws" {
-  version = "~> 2.66"
-  region  = "${var.region}"
-}
+
+# provider.tf Configure the AWS Provider
+    provider "aws" {
+    version = "~> 2.66"
+    region  = "${var.region}"
+    }
 
 
 
@@ -16,40 +16,40 @@ Provisioners can be used to model specific actions on the local machine or on a 
 #this part we be creating a key
 
 
-resource "aws_key_pair" "deployer" {
+    resource "aws_key_pair" "deployer" {
 
-  key_name   = "deployer-key"
+    key_name   = "deployer-key"
   
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
+    public_key = "${file("~/.ssh/id_rsa.pub")}"
   
- }
+    }
  
 
 #this part runs a user data from nagios.sh file in order to install prerequisites for nagios server.
   
-  user_data = "${file("nagios.sh")}"
+    user_data = "${file("nagios.sh")}"
   
-  instance_type = "t3.medium"
+    instance_type = "t3.medium"
  
  
 #the name of the project
 
-tags = {
+    tags = {
    
-   Name = "NagiosProject"
+     Name = "NagiosProject"
   
 
 
 #security groups 
 
-resource "aws_security_group" "allow_tls" {
+    resource "aws_security_group" "allow_tls" {
   
-  name        = "allow_tls"
+    name        = "allow_tls"
   
-  description = "Allow TLS inbound traffic"
+    description = "Allow TLS inbound traffic"
   
 
-  ingress {
+    ingress {
     
     description = "TLS from VPC"
     
@@ -72,19 +72,19 @@ resource "aws_security_group" "allow_tls" {
 This resource can prove useful when a module accepts a vpc id as an input variable and needs to, for example, determine the CIDR block of that VPC.
 
 
-resource "aws_vpc" "main" {
+    resource "aws_vpc" "main" {
   
-  cidr_block = "${var.cidr_block}"
+     cidr_block = "${var.cidr_block}"
 
-}
+      }
 
-tags = {
+    tags = {
    
-   Name = "ProjectVPC"
+     Name = "ProjectVPC"
   
-  }
+    }
 
-}
+    }
 
 
 
@@ -109,17 +109,17 @@ data "aws_ami" "centos" {
   
   filter {
     
-    name   = "name"
+   name   = "name"
     
-    values = ["CentOS Linux 7 x86_64 HVM EBS *"]
+   values = ["CentOS Linux 7 x86_64 HVM EBS *"]
   
   }
   
   filter {
     
-    name   = "virtualization-type"
+   name   = "virtualization-type"
     
-    values = ["hvm"]
+   values = ["hvm"]
   
   }
  
@@ -129,7 +129,7 @@ data "aws_ami" "centos" {
 
 output "CENTOS_AMI_ID" {
     
-    value = "${data.aws_ami.centos.id}"
+   value = "${data.aws_ami.centos.id}"
 
 }
 
